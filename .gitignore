@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Comate（本地安装的第三方 skills，约 8.5MB，不入库）
+.comate/
+
 # Xcode
 build/
 DerivedData/

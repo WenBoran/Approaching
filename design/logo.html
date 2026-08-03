@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approaching · 软胶系 Logo 候选</title>
+<style>
+  :root { --page:#FBF7F3; --ink:#3A2A1E; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--page); padding:40px 24px 90px;
+    font:13px/1.65 -apple-system,"SF Pro Text","PingFang SC",system-ui,sans-serif; color:#6E6058; }
+  .wrap { max-width:1080px; margin:0 auto; }
+  h1 { margin:0 0 8px; font:700 24px/1.3 -apple-system,system-ui,sans-serif; letter-spacing:-.02em; color:var(--ink); }
+  h2 { margin:50px 0 6px; font:600 17px/1.4 -apple-system,system-ui,sans-serif; color:var(--ink); }
+  p { margin:0 0 10px; max-width:820px; }
+  b.k { color:var(--ink); }
+  code { font:12px/1 ui-monospace,monospace; background:#F1E8DF; padding:1px 5px; border-radius:4px; }
+
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:30px 24px; margin-top:22px; }
+  .card { background:#fff; border:1px solid #EDE3D9; border-radius:18px; padding:20px; }
+  .card.pick { border-color:#FF6B54; box-shadow:0 0 0 3px rgba(255,107,84,.12); }
+  .card.base { border-color:#D9C9B8; background:#FFFCF9; }
+  .head { display:flex; align-items:center; gap:9px; margin-bottom:14px; }
+  .no { min-width:20px; padding:1px 7px; border-radius:6px; background:var(--ink); color:#fff; font:700 11px/1.6 ui-monospace,monospace; }
+  .nm { font:600 15px/1.3 -apple-system,system-ui,sans-serif; color:var(--ink); }
+  .badge { margin-left:auto; padding:2px 9px; border-radius:20px; background:#FFF0EC; color:#C2402B; font:600 10.5px/1.7 -apple-system,system-ui,sans-serif; }
+  .badge.old { background:#F1E8DF; color:#7A6754; }
+  .row { display:flex; align-items:flex-end; gap:13px; flex-wrap:wrap; }
+  .ic { display:block; border-radius:23%; box-shadow:0 10px 22px -12px rgba(58,42,30,.3); }
+  ul { padding-left:18px; margin:14px 0 0; }
+  li { margin:4px 0; }
+
+  .pal { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:26px 20px; margin-top:18px; }
+  .pal figure { margin:0; }
+  .pal figcaption b { display:block; color:var(--ink); font:600 13px/1.5 -apple-system,system-ui,sans-serif; margin-top:11px; }
+  .sw { display:flex; gap:4px; margin:7px 0 4px; }
+  .sw i { width:20px; height:20px; border-radius:5px; border:1px solid rgba(0,0,0,.08); }
+  .hex { font:500 10px/1.5 ui-monospace,monospace; color:#A4968A; }
+
+  .strip { display:flex; gap:22px; flex-wrap:wrap; margin-top:16px; }
+  .wall { padding:15px; border-radius:20px; display:flex; gap:14px; align-items:flex-end; }
+  .w1 { background:linear-gradient(135deg,#F7F5F2,#DCD5CC); }
+  .w2 { background:linear-gradient(135deg,#1E1A16,#0C0A08); }
+  .w3 { background:linear-gradient(135deg,#F97316,#DB2777); }
+  .cap { text-align:center; font:500 11px/1.4 ui-monospace,monospace; color:#A4968A; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- 暖底渐变 -->
+    <linearGradient id="gPeach" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#FFEFD2"/><stop offset="1" stop-color="#FFD3BE"/>
+    </linearGradient>
+    <linearGradient id="gApricot" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#FFE7C2"/><stop offset="1" stop-color="#FFC98F"/>
+    </linearGradient>
+    <linearGradient id="gBlush" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#FFF0F0"/><stop offset="1" stop-color="#FFD6DA"/>
+    </linearGradient>
+    <linearGradient id="gSunset" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#FFD9A8"/><stop offset="1" stop-color="#FF9E7D"/>
+    </linearGradient>
+    <linearGradient id="gButter" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#FFF6D8"/><stop offset="1" stop-color="#FFE0A8"/>
+    </linearGradient>
+    <linearGradient id="gCocoa" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#FFF4E6"/><stop offset="1" stop-color="#F0D9BE"/>
+    </linearGradient>
+
+    <!-- 0 原方案 3（基准） -->
+    <symbol id="v0" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gPeach)"/>
+      <rect x="186" y="452" width="664" height="176" rx="88" fill="#FF9C6B" opacity=".28"/>
+      <rect x="180" y="424" width="664" height="176" rx="88" fill="#FFFFFF"/>
+      <circle cx="700" cy="512" r="66" fill="#FF6B54"/>
+    </symbol>
+
+    <!-- 1 站点序列 -->
+    <symbol id="v1" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gPeach)"/>
+      <rect x="150" y="452" width="736" height="176" rx="88" fill="#FF9C6B" opacity=".26"/>
+      <rect x="144" y="424" width="736" height="176" rx="88" fill="#FFFFFF"/>
+      <circle cx="286" cy="512" r="42" fill="#FFC9AE"/>
+      <circle cx="452" cy="512" r="42" fill="#FFC9AE"/>
+      <circle cx="682" cy="512" r="80" fill="#FF6B54"/>
+    </symbol>
+
+    <!-- 2 竖立站台 -->
+    <symbol id="v2" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gApricot)"/>
+      <rect x="436" y="212" width="176" height="640" rx="88" fill="#E08A50" opacity=".26"/>
+      <rect x="424" y="188" width="176" height="640" rx="88" fill="#FFFFFF"/>
+      <circle cx="512" cy="300" r="66" fill="#E4572E"/>
+    </symbol>
+
+    <!-- 3 斜置站台 -->
+    <symbol id="v3" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gPeach)"/>
+      <g transform="rotate(-30 512 512)">
+        <rect x="196" y="452" width="632" height="168" rx="84" fill="#FF9C6B" opacity=".26"/>
+        <rect x="190" y="426" width="632" height="168" rx="84" fill="#FFFFFF"/>
+        <circle cx="700" cy="510" r="62" fill="#FF6B54"/>
+      </g>
+    </symbol>
+
+    <!-- 4 浮起圆点 -->
+    <symbol id="v4" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gButter)"/>
+      <rect x="200" y="656" width="624" height="150" rx="75" fill="#D8A64E" opacity=".24"/>
+      <rect x="192" y="628" width="624" height="150" rx="75" fill="#FFFFFF"/>
+      <ellipse cx="560" cy="600" rx="104" ry="26" fill="#D8A64E" opacity=".22"/>
+      <circle cx="560" cy="396" r="132" fill="#2FB68A"/>
+    </symbol>
+
+    <!-- 5 双色站台 -->
+    <symbol id="v5" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gBlush)"/>
+      <rect x="156" y="452" width="712" height="176" rx="88" fill="#E0808F" opacity=".24"/>
+      <rect x="150" y="424" width="712" height="176" rx="88" fill="#FFFFFF"/>
+      <path d="M556 424h218a88 88 0 0 1 88 88 88 88 0 0 1-88 88H556z" fill="#FF5C7A"/>
+    </symbol>
+
+    <!-- 6 站台 + 车厢 -->
+    <symbol id="v6" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gSunset)"/>
+      <rect x="164" y="672" width="696" height="132" rx="66" fill="#B0512F" opacity=".26"/>
+      <rect x="156" y="646" width="696" height="132" rx="66" fill="#FFFFFF"/>
+      <rect x="332" y="252" width="360" height="330" rx="112" fill="#FFFFFF"/>
+      <rect x="404" y="330" width="216" height="104" rx="52" fill="#C2402B"/>
+    </symbol>
+
+    <!-- 7 双臂夹站 -->
+    <symbol id="v7" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gCocoa)"/>
+      <rect x="176" y="286" width="672" height="132" rx="66" fill="#C8A480" opacity=".26"/>
+      <rect x="170" y="260" width="672" height="132" rx="66" fill="#FFFFFF"/>
+      <rect x="176" y="658" width="672" height="132" rx="66" fill="#C8A480" opacity=".26"/>
+      <rect x="170" y="632" width="672" height="132" rx="66" fill="#FFFFFF"/>
+      <circle cx="640" cy="512" r="104" fill="#E0552B"/>
+    </symbol>
+
+    <!-- 8 短站台 + 大圆点 -->
+    <symbol id="v8" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gPeach)"/>
+      <rect x="230" y="700" width="440" height="128" rx="64" fill="#FF9C6B" opacity=".26"/>
+      <rect x="222" y="674" width="440" height="128" rx="64" fill="#FFFFFF"/>
+      <circle cx="640" cy="392" r="176" fill="#FF6B54"/>
+    </symbol>
+
+    <!-- 主推的配色变体 -->
+    <symbol id="p1" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gPeach)"/>
+      <rect x="150" y="452" width="736" height="176" rx="88" fill="#FF9C6B" opacity=".26"/>
+      <rect x="144" y="424" width="736" height="176" rx="88" fill="#FFFFFF"/>
+      <circle cx="286" cy="512" r="42" fill="#FFC9AE"/><circle cx="452" cy="512" r="42" fill="#FFC9AE"/>
+      <circle cx="682" cy="512" r="80" fill="#FF6B54"/>
+    </symbol>
+    <symbol id="p2" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gApricot)"/>
+      <rect x="150" y="452" width="736" height="176" rx="88" fill="#D98A46" opacity=".26"/>
+      <rect x="144" y="424" width="736" height="176" rx="88" fill="#FFFFFF"/>
+      <circle cx="286" cy="512" r="42" fill="#FFD9AE"/><circle cx="452" cy="512" r="42" fill="#FFD9AE"/>
+      <circle cx="682" cy="512" r="80" fill="#E4572E"/>
+    </symbol>
+    <symbol id="p3" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gBlush)"/>
+      <rect x="150" y="452" width="736" height="176" rx="88" fill="#E0808F" opacity=".24"/>
+      <rect x="144" y="424" width="736" height="176" rx="88" fill="#FFFFFF"/>
+      <circle cx="286" cy="512" r="42" fill="#FFD0D6"/><circle cx="452" cy="512" r="42" fill="#FFD0D6"/>
+      <circle cx="682" cy="512" r="80" fill="#FF5C7A"/>
+    </symbol>
+    <symbol id="p4" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gButter)"/>
+      <rect x="150" y="452" width="736" height="176" rx="88" fill="#D8A64E" opacity=".24"/>
+      <rect x="144" y="424" width="736" height="176" rx="88" fill="#FFFFFF"/>
+      <circle cx="286" cy="512" r="42" fill="#FFE6B0"/><circle cx="452" cy="512" r="42" fill="#FFE6B0"/>
+      <circle cx="682" cy="512" r="80" fill="#2FB68A"/>
+    </symbol>
+    <symbol id="p5" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gSunset)"/>
+      <rect x="150" y="452" width="736" height="176" rx="88" fill="#B0512F" opacity=".26"/>
+      <rect x="144" y="424" width="736" height="176" rx="88" fill="#FFFFFF"/>
+      <circle cx="286" cy="512" r="42" fill="#FFD3B8"/><circle cx="452" cy="512" r="42" fill="#FFD3B8"/>
+      <circle cx="682" cy="512" r="80" fill="#C2402B"/>
+    </symbol>
+    <symbol id="p6" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#gCocoa)"/>
+      <rect x="150" y="452" width="736" height="176" rx="88" fill="#C8A480" opacity=".28"/>
+      <rect x="144" y="424" width="736" height="176" rx="88" fill="#4A3628"/>
+      <circle cx="286" cy="512" r="42" fill="#8C755F"/><circle cx="452" cy="512" r="42" fill="#8C755F"/>
+      <circle cx="682" cy="512" r="80" fill="#E0552B"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <h1>Approaching · 软胶系 Logo 候选</h1>
+  <p>
+    沿着你选中的 3 号继续做。保留它的三个特征：<b class="k">暖色底 + 白色圆润主体 + 一层软投影 + 珊瑚色亮点</b>，
+    只改主体的形状和站点的位置。投影用低透明度的偏移色块实现，不依赖滤镜，导出成 PNG 时不会丢。
+  </p>
+  <p>每行从左到右：168px、60px、44px。最上面第一张是原版 3 号，方便对照。</p>
+
+  <div class="cards">
+
+    <div class="card base">
+      <div class="head"><span class="no">3</span><span class="nm">原版 · 软胶站台</span><span class="badge old">已选中的基准</span></div>
+      <div class="row">
+        <svg class="ic" width="168" height="168" viewBox="0 0 1024 1024"><use href="#v0" xlink:href="#v0"/></svg>
+        <svg class="ic" width="60"  height="60"  viewBox="0 0 1024 1024"><use href="#v0" xlink:href="#v0"/></svg>
+        <svg class="ic" width="44"  height="44"  viewBox="0 0 1024 1024"><use href="#v0" xlink:href="#v0"/></svg>
+      </div>
+      <ul><li>白胶囊是站台，珊瑚点停在右端。下面几版都是从这里长出来的。</li></ul>
+    </div>
+
+    <div class="card pick">
+      <div class="head"><span class="no">1</span><span class="nm">站点序列</span><span class="badge">主推</span></div>
+      <div class="row">
+        <svg class="ic" width="168" height="168" viewBox="0 0 1024 1024"><use href="#v1" xlink:href="#v1"/></svg>
+        <svg class="ic" width="60"  height="60"  viewBox="0 0 1024 1024"><use href="#v1" xlink:href="#v1"/></svg>
+        <svg class="ic" width="44"  height="44"  viewBox="0 0 1024 1024"><use href="#v1" xlink:href="#v1"/></svg>
+      </div>
+      <ul>
+        <li>胶囊上排了三个站点，前两个淡、最后一个珊瑚且明显更大——<b class="k">"一站一站数过来，就是这一站"</b>。</li>
+        <li>比原版多了一层信息，但仍然只是"一条胶囊 + 几个圆"，复杂度几乎没增加。</li>
+        <li>大小对比自带层次，44px 下小点会并成淡色短条，大点依然清楚，不会糊成一团。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="head"><span class="no">2</span><span class="nm">竖立站台</span></div>
+      <div class="row">
+        <svg class="ic" width="168" height="168" viewBox="0 0 1024 1024"><use href="#v2" xlink:href="#v2"/></svg>
+        <svg class="ic" width="60"  height="60"  viewBox="0 0 1024 1024"><use href="#v2" xlink:href="#v2"/></svg>
+        <svg class="ic" width="44"  height="44"  viewBox="0 0 1024 1024"><use href="#v2" xlink:href="#v2"/></svg>
+      </div>
+      <ul>
+        <li>胶囊立起来，杏黄底。竖向暗合站点列表自上而下的阅读顺序，珊瑚点在顶端。</li>
+        <li>竖构图在一屏横向元素的图标里比较少见，容易被记住。</li>
+        <li>缺点：竖胶囊有点像温度计或电池，语义会串。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="head"><span class="no">3</span><span class="nm">斜置站台</span></div>
+      <div class="row">
+        <svg class="ic" width="168" height="168" viewBox="0 0 1024 1024"><use href="#v3" xlink:href="#v3"/></svg>
+        <svg class="ic" width="60"  height="60"  viewBox="0 0 1024 1024"><use href="#v3" xlink:href="#v3"/></svg>
+        <svg class="ic" width="44"  height="44"  viewBox="0 0 1024 1024"><use href="#v3" xlink:href="#v3"/></svg>
+      </div>
+      <ul>
+        <li>整体转 30°，投影跟着一起转。倾斜让静止的胶囊有了往上走的动势，是这组里最轻快的。</li>
+        <li>斜置同时把画面对角线撑满，视觉重量比水平版更足。</li>
+        <li>缺点：倾斜后与 squircle 边框的留白不均，需要微调才不会显得歪。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="head"><span class="no">4</span><span class="nm">浮起圆点</span></div>
+      <div class="row">
+        <svg class="ic" width="168" height="168" viewBox="0 0 1024 1024"><use href="#v4" xlink:href="#v4"/></svg>
+        <svg class="ic" width="60"  height="60"  viewBox="0 0 1024 1024"><use href="#v4" xlink:href="#v4"/></svg>
+        <svg class="ic" width="44"  height="44"  viewBox="0 0 1024 1024"><use href="#v4" xlink:href="#v4"/></svg>
+      </div>
+      <ul>
+        <li>大圆点悬在站台上方，中间那道椭圆软影撑出高度差。奶油底配薄荷绿，是这组里最跳的配色。</li>
+        <li>圆点占比最大，44px 下辨识度最高。</li>
+        <li>缺点：悬浮的球更像"气泡/落下"，地铁语义靠下面那条站台勉强撑着。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="head"><span class="no">5</span><span class="nm">双色站台</span></div>
+      <div class="row">
+        <svg class="ic" width="168" height="168" viewBox="0 0 1024 1024"><use href="#v5" xlink:href="#v5"/></svg>
+        <svg class="ic" width="60"  height="60"  viewBox="0 0 1024 1024"><use href="#v5" xlink:href="#v5"/></svg>
+        <svg class="ic" width="44"  height="44"  viewBox="0 0 1024 1024"><use href="#v5" xlink:href="#v5"/></svg>
+      </div>
+      <ul>
+        <li>胶囊右段直接染成珊瑚色，一个形状两种颜色，元素数降到最少。</li>
+        <li>粉白底最柔和，气质最"日常小工具"。</li>
+        <li>缺点：像进度条，容易被理解成"加载中"。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="head"><span class="no">6</span><span class="nm">站台 + 车厢</span></div>
+      <div class="row">
+        <svg class="ic" width="168" height="168" viewBox="0 0 1024 1024"><use href="#v6" xlink:href="#v6"/></svg>
+        <svg class="ic" width="60"  height="60"  viewBox="0 0 1024 1024"><use href="#v6" xlink:href="#v6"/></svg>
+        <svg class="ic" width="44"  height="44"  viewBox="0 0 1024 1024"><use href="#v6" xlink:href="#v6"/></svg>
+      </div>
+      <ul>
+        <li>下面是站台，上面是圆胖的车厢，车窗用珊瑚色。是这组里地铁语义最明确的一版。</li>
+        <li>日落橙底，暖度最高。</li>
+        <li>缺点：两个主体 + 一个细节，44px 下车窗会缩成一条，接近糊。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="head"><span class="no">7</span><span class="nm">双臂夹站</span></div>
+      <div class="row">
+        <svg class="ic" width="168" height="168" viewBox="0 0 1024 1024"><use href="#v7" xlink:href="#v7"/></svg>
+        <svg class="ic" width="60"  height="60"  viewBox="0 0 1024 1024"><use href="#v7" xlink:href="#v7"/></svg>
+        <svg class="ic" width="44"  height="44"  viewBox="0 0 1024 1024"><use href="#v7" xlink:href="#v7"/></svg>
+      </div>
+      <ul>
+        <li>上下两条胶囊是双向站台，中间偏右的圆点是列车所在的位置。俯视视角。</li>
+        <li>奶咖底 + 深棕主体，是唯一一版主体不用白色的，质感偏印刷。</li>
+        <li>缺点：两条平行线容易被读成"等号"或"菜单"。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="head"><span class="no">8</span><span class="nm">短站台 + 大圆点</span></div>
+      <div class="row">
+        <svg class="ic" width="168" height="168" viewBox="0 0 1024 1024"><use href="#v8" xlink:href="#v8"/></svg>
+        <svg class="ic" width="60"  height="60"  viewBox="0 0 1024 1024"><use href="#v8" xlink:href="#v8"/></svg>
+        <svg class="ic" width="44"  height="44"  viewBox="0 0 1024 1024"><use href="#v8" xlink:href="#v8"/></svg>
+      </div>
+      <ul>
+        <li>把比例倒过来：圆点变主角，站台缩短退到左下角托着它。构图不对称，最有呼吸感。</li>
+        <li>大圆在小尺寸下几乎不可能糊，是这组里最抗缩的。</li>
+        <li>缺点：站台太小，"地铁"这层意思几乎全靠 App 名承载。</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <h2>主推方案的 6 套暖色配色</h2>
+  <p>形状固定为「站点序列」，只换配色。前五套主体是白色，最后一套改成深棕，质感差别很大。</p>
+  <div class="pal">
+    <figure>
+      <svg class="ic" width="150" height="150" viewBox="0 0 1024 1024"><use href="#p1" xlink:href="#p1"/></svg>
+      <figcaption><b>Peach Cream</b>
+        <div class="sw"><i style="background:#FFEFD2"></i><i style="background:#FFD3BE"></i><i style="background:#FFFFFF"></i><i style="background:#FF6B54"></i></div>
+        <div class="hex">#FFEFD2 · #FFD3BE · #FF6B54</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <svg class="ic" width="150" height="150" viewBox="0 0 1024 1024"><use href="#p2" xlink:href="#p2"/></svg>
+      <figcaption><b>Apricot</b>
+        <div class="sw"><i style="background:#FFE7C2"></i><i style="background:#FFC98F"></i><i style="background:#FFFFFF"></i><i style="background:#E4572E"></i></div>
+        <div class="hex">#FFE7C2 · #FFC98F · #E4572E</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <svg class="ic" width="150" height="150" viewBox="0 0 1024 1024"><use href="#p3" xlink:href="#p3"/></svg>
+      <figcaption><b>Blush</b>
+        <div class="sw"><i style="background:#FFF0F0"></i><i style="background:#FFD6DA"></i><i style="background:#FFFFFF"></i><i style="background:#FF5C7A"></i></div>
+        <div class="hex">#FFF0F0 · #FFD6DA · #FF5C7A</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <svg class="ic" width="150" height="150" viewBox="0 0 1024 1024"><use href="#p4" xlink:href="#p4"/></svg>
+      <figcaption><b>Butter Mint</b>
+        <div class="sw"><i style="background:#FFF6D8"></i><i style="background:#FFE0A8"></i><i style="background:#FFFFFF"></i><i style="background:#2FB68A"></i></div>
+        <div class="hex">#FFF6D8 · #FFE0A8 · #2FB68A</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <svg class="ic" width="150" height="150" viewBox="0 0 1024 1024"><use href="#p5" xlink:href="#p5"/></svg>
+      <figcaption><b>Sunset</b>
+        <div class="sw"><i style="background:#FFD9A8"></i><i style="background:#FF9E7D"></i><i style="background:#FFFFFF"></i><i style="background:#C2402B"></i></div>
+        <div class="hex">#FFD9A8 · #FF9E7D · #C2402B</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <svg class="ic" width="150" height="150" viewBox="0 0 1024 1024"><use href="#p6" xlink:href="#p6"/></svg>
+      <figcaption><b>Cocoa Cream</b>
+        <div class="sw"><i style="background:#FFF4E6"></i><i style="background:#F0D9BE"></i><i style="background:#4A3628"></i><i style="background:#E0552B"></i></div>
+        <div class="hex">#FFF4E6 · #F0D9BE · #4A3628 · #E0552B</div>
+      </figcaption>
+    </figure>
+  </div>
+
+  <h2>壁纸环境校验</h2>
+  <p>暖色亮底在浅色壁纸上最容易发虚，这一排专门看边界。</p>
+  <div class="strip">
+    <div>
+      <div class="wall w1">
+        <svg class="ic" width="88" height="88" viewBox="0 0 1024 1024"><use href="#v1" xlink:href="#v1"/></svg>
+        <svg class="ic" width="88" height="88" viewBox="0 0 1024 1024"><use href="#v3" xlink:href="#v3"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#v1" xlink:href="#v1"/></svg>
+      </div>
+      <div class="cap">浅色壁纸</div>
+    </div>
+    <div>
+      <div class="wall w2">
+        <svg class="ic" width="88" height="88" viewBox="0 0 1024 1024"><use href="#v1" xlink:href="#v1"/></svg>
+        <svg class="ic" width="88" height="88" viewBox="0 0 1024 1024"><use href="#v3" xlink:href="#v3"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#v1" xlink:href="#v1"/></svg>
+      </div>
+      <div class="cap">深色壁纸</div>
+    </div>
+    <div>
+      <div class="wall w3">
+        <svg class="ic" width="88" height="88" viewBox="0 0 1024 1024"><use href="#v1" xlink:href="#v1"/></svg>
+        <svg class="ic" width="88" height="88" viewBox="0 0 1024 1024"><use href="#v3" xlink:href="#v3"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#v1" xlink:href="#v1"/></svg>
+      </div>
+      <div class="cap">彩色壁纸</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

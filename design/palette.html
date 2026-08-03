@@ -1,0 +1,451 @@
+<\!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approaching · 配色候选</title>
+<style>
+  :root { --page:#EEF2F7; --ink:#0B2A4A; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--page); padding:40px 24px 90px;
+    font:13px/1.65 -apple-system,"SF Pro Text","PingFang SC",system-ui,sans-serif; color:#5A6A7A; }
+  .wrap { max-width:1180px; margin:0 auto; }
+  h1 { margin:0 0 8px; font:700 24px/1.3 -apple-system,system-ui,sans-serif; letter-spacing:-.02em; color:var(--ink); }
+  h2 { margin:46px 0 4px; font:600 16px/1.4 -apple-system,system-ui,sans-serif; color:var(--ink); }
+  p { margin:0 0 10px; max-width:820px; }
+  code { font:12px/1 ui-monospace,monospace; background:#E3EAF2; padding:1px 5px; border-radius:4px; }
+  b.k { color:var(--ink); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:30px 22px; margin-top:18px; }
+  figure { margin:0; }
+  .row { display:flex; align-items:flex-end; gap:12px; }
+  .ic { display:block; border-radius:23%; box-shadow:0 10px 22px -12px rgba(11,42,74,.45); }
+  figcaption b { display:block; color:var(--ink); font:600 13px/1.5 -apple-system,system-ui,sans-serif; margin-top:12px; }
+  .sw { display:flex; gap:4px; margin:7px 0 5px; }
+  .sw i { width:20px; height:20px; border-radius:5px; border:1px solid rgba(0,0,0,.1); }
+  .hex { font:500 10px/1.5 ui-monospace,monospace; color:#94A3B8; }
+  .note { margin-top:4px; font-size:12px; }
+  .walls { display:flex; gap:20px; flex-wrap:wrap; margin-top:16px; }
+  .wall { padding:14px; border-radius:18px; display:flex; gap:12px; align-items:flex-end; }
+  .w1 { background:linear-gradient(135deg,#F5F7FA,#D5DDE7); }
+  .w2 { background:linear-gradient(135deg,#1B1F26,#0B0D10); }
+  .w3 { background:linear-gradient(135deg,#F97316,#DB2777); }
+  .cap { text-align:center; font:500 11px/1.4 ui-monospace,monospace; color:#94A3B8; margin-top:7px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="p0" viewBox="0 0 1024 1024">
+    <linearGradient id="g0" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#122E52"/><stop offset="1" stop-color="#020617"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g0)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#F8FAFC" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#38BDF8"/>
+  </symbol>
+  <symbol id="p1" viewBox="0 0 1024 1024">
+    <linearGradient id="g1" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#1E293B"/><stop offset="1" stop-color="#020617"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g1)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#F8FAFC" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#EF4444"/>
+  </symbol>
+  <symbol id="p2" viewBox="0 0 1024 1024">
+    <linearGradient id="g2" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#241F5C"/><stop offset="1" stop-color="#0F0F23"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g2)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#F8FAFC" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#F97316"/>
+  </symbol>
+  <symbol id="p3" viewBox="0 0 1024 1024">
+    <linearGradient id="g3" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#241F5C"/><stop offset="1" stop-color="#0F0F23"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g3)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#F8FAFC" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#22C55E"/>
+  </symbol>
+  <symbol id="p4" viewBox="0 0 1024 1024">
+    <linearGradient id="g4" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#3A4A61"/><stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g4)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#F8FAFC" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#38BDF8"/>
+  </symbol>
+  <symbol id="p5" viewBox="0 0 1024 1024">
+    <linearGradient id="g5" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#1F1F23"/><stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g5)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#FAFAFA" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#FAFAFA"/>
+  </symbol>
+  <symbol id="p6" viewBox="0 0 1024 1024">
+    <linearGradient id="g6" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g6)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#0F172A" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#0369A1"/>
+  </symbol>
+  <symbol id="p7" viewBox="0 0 1024 1024">
+    <linearGradient id="g7" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g7)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#1E3A8A" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#EA580C"/>
+  </symbol>
+  <symbol id="p8" viewBox="0 0 1024 1024">
+    <linearGradient id="g8" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#FDF2F8"/><stop offset="1" stop-color="#FBCFE8"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g8)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#831843" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#0891B2"/>
+  </symbol>
+  <symbol id="p9" viewBox="0 0 1024 1024">
+    <linearGradient id="g9" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#FFF9F0"/><stop offset="1" stop-color="#EEDFC6"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g9)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#2B1D12" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#C7382E"/>
+  </symbol>
+  <symbol id="p10" viewBox="0 0 1024 1024">
+    <linearGradient id="g10" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#241806"/><stop offset="1" stop-color="#0A0704"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g10)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#F39700"/>
+  </symbol>
+  <symbol id="p11" viewBox="0 0 1024 1024">
+    <linearGradient id="g11" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#1A1D22"/><stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g11)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#E32017"/>
+  </symbol>
+  <symbol id="p12" viewBox="0 0 1024 1024">
+    <linearGradient id="g12" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#0039A6"/><stop offset="1" stop-color="#002569"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g12)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#FF6319"/>
+  </symbol>
+  <symbol id="p13" viewBox="0 0 1024 1024">
+    <linearGradient id="g13" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#1B5E4B"/><stop offset="1" stop-color="#06251C"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g13)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#FFCD00"/>
+  </symbol>
+  <symbol id="p14" viewBox="0 0 1024 1024">
+    <linearGradient id="g14" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#0057B8"/><stop offset="1" stop-color="#002E63"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g14)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#F0AB00"/>
+  </symbol>
+  <symbol id="p15" viewBox="0 0 1024 1024">
+    <linearGradient id="g15" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#2A0A10"/><stop offset="1" stop-color="#0B0305"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g15)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#E60012"/>
+  </symbol>
+  <symbol id="p16" viewBox="0 0 1024 1024">
+    <linearGradient id="g16" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#00514F"/><stop offset="1" stop-color="#001F1E"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g16)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#00E5D0"/>
+  </symbol>
+  <symbol id="p17" viewBox="0 0 1024 1024">
+    <linearGradient id="g17" x1="0" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#4B2E83"/><stop offset="1" stop-color="#1B0F33"/>
+    </linearGradient>
+    <rect width="1024" height="1024" fill="url(#g17)"/>
+    <path d="M300 712V352l212 208 212-208v360" fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="512" cy="560" r="66" fill="#FFC845"/>
+  </symbol>
+</defs></svg>
+
+<div class="wrap">
+  <h1>Approaching · 配色候选（18 套）</h1>
+  <p>
+    形体固定为主推的<b class="k">定点 M</b>，只换配色便于横向比较。每套左边 132px、右边 44px。
+    色卡顺序是 <code>底色亮端 · 底色暗端 · 主形体 · 强调点</code>，最后一个色值可直接填进 <code>AccentColor.colorset</code>。
+  </p>
+  <p>
+    前两组来自 <code>ui-ux-pro-max</code> 的 color 库；第三组取真实城市地铁线路色——
+    这类配色自带「地铁」联想，且都经过大规模可读性验证。
+  </p>
+
+  <h2>深色系 · 稳妥可用</h2>
+  <div class="grid">
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p0" xlink:href="#p0"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p0" xlink:href="#p0"/></svg>
+      </div>
+      <figcaption>
+        <b>1. Transit Navy</b>
+        <div class="sw"><i style="background:#122E52"></i><i style="background:#020617"></i><i style="background:#F8FAFC"></i><i style="background:#38BDF8"></i></div>
+        <div class="hex">#122E52 · #020617 · #F8FAFC · #38BDF8</div>
+        <div class="note">库内 High contrast navy + blue，最保守的选择</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p1" xlink:href="#p1"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p1" xlink:href="#p1"/></svg>
+      </div>
+      <figcaption>
+        <b>2. Signal Red</b>
+        <div class="sw"><i style="background:#1E293B"></i><i style="background:#020617"></i><i style="background:#F8FAFC"></i><i style="background:#EF4444"></i></div>
+        <div class="hex">#1E293B · #020617 · #F8FAFC · #EF4444</div>
+        <div class="note">库内 High contrast dark + brand accent</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p2" xlink:href="#p2"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p2" xlink:href="#p2"/></svg>
+      </div>
+      <figcaption>
+        <b>3. Warm Amber</b>
+        <div class="sw"><i style="background:#241F5C"></i><i style="background:#0F0F23"></i><i style="background:#F8FAFC"></i><i style="background:#F97316"></i></div>
+        <div class="hex">#241F5C · #0F0F23 · #F8FAFC · #F97316</div>
+        <div class="note">库内 Dark + warm accent，暖调最强</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p3" xlink:href="#p3"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p3" xlink:href="#p3"/></svg>
+      </div>
+      <figcaption>
+        <b>4. Mint Signal</b>
+        <div class="sw"><i style="background:#241F5C"></i><i style="background:#0F0F23"></i><i style="background:#F8FAFC"></i><i style="background:#22C55E"></i></div>
+        <div class="hex">#241F5C · #0F0F23 · #F8FAFC · #22C55E</div>
+        <div class="note">同上骨架换绿，最清爽</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p4" xlink:href="#p4"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p4" xlink:href="#p4"/></svg>
+      </div>
+      <figcaption>
+        <b>5. Slate Neutral</b>
+        <div class="sw"><i style="background:#3A4A61"></i><i style="background:#0F172A"></i><i style="background:#F8FAFC"></i><i style="background:#38BDF8"></i></div>
+        <div class="hex">#3A4A61 · #0F172A · #F8FAFC · #38BDF8</div>
+        <div class="note">灰蓝中性，最不抢眼</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p5" xlink:href="#p5"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p5" xlink:href="#p5"/></svg>
+      </div>
+      <figcaption>
+        <b>6. Pure Mono</b>
+        <div class="sw"><i style="background:#1F1F23"></i><i style="background:#000000"></i><i style="background:#FAFAFA"></i><i style="background:#FAFAFA"></i></div>
+        <div class="hex">#1F1F23 · #000000 · #FAFAFA · #FAFAFA</div>
+        <div class="note">纯黑白，无强调色，最极简</div>
+      </figcaption>
+    </figure>
+  </div>
+  <h2>浅色系</h2>
+  <div class="grid">
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p6" xlink:href="#p6"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p6" xlink:href="#p6"/></svg>
+      </div>
+      <figcaption>
+        <b>7. Paper Navy</b>
+        <div class="sw"><i style="background:#FFFFFF"></i><i style="background:#E2E8F0"></i><i style="background:#0F172A"></i><i style="background:#0369A1"></i></div>
+        <div class="hex">#FFFFFF · #E2E8F0 · #0F172A · #0369A1</div>
+        <div class="note">白纸深墨，OLED 上偏亮</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p7" xlink:href="#p7"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p7" xlink:href="#p7"/></svg>
+      </div>
+      <figcaption>
+        <b>8. Trust Blue</b>
+        <div class="sw"><i style="background:#FFFFFF"></i><i style="background:#DBEAFE"></i><i style="background:#1E3A8A"></i><i style="background:#EA580C"></i></div>
+        <div class="hex">#FFFFFF · #DBEAFE · #1E3A8A · #EA580C</div>
+        <div class="note">库内 Trust blue + orange CTA</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p8" xlink:href="#p8"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p8" xlink:href="#p8"/></svg>
+      </div>
+      <figcaption>
+        <b>9. Bold Pink</b>
+        <div class="sw"><i style="background:#FDF2F8"></i><i style="background:#FBCFE8"></i><i style="background:#831843"></i><i style="background:#0891B2"></i></div>
+        <div class="hex">#FDF2F8 · #FBCFE8 · #831843 · #0891B2</div>
+        <div class="note">库内 Bold pink + cyan accent</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p9" xlink:href="#p9"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p9" xlink:href="#p9"/></svg>
+      </div>
+      <figcaption>
+        <b>10. Cream Retro</b>
+        <div class="sw"><i style="background:#FFF9F0"></i><i style="background:#EEDFC6"></i><i style="background:#2B1D12"></i><i style="background:#C7382E"></i></div>
+        <div class="hex">#FFF9F0 · #EEDFC6 · #2B1D12 · #C7382E</div>
+        <div class="note">米黄纸感，复古印刷调</div>
+      </figcaption>
+    </figure>
+  </div>
+  <h2>城市线路色 · 有真实出处</h2>
+  <div class="grid">
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p10" xlink:href="#p10"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p10" xlink:href="#p10"/></svg>
+      </div>
+      <figcaption>
+        <b>11. Tokyo Ginza</b>
+        <div class="sw"><i style="background:#241806"></i><i style="background:#0A0704"></i><i style="background:#FFFFFF"></i><i style="background:#F39700"></i></div>
+        <div class="hex">#241806 · #0A0704 · #FFFFFF · #F39700</div>
+        <div class="note">东京银座线橙 #F39700</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p11" xlink:href="#p11"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p11" xlink:href="#p11"/></svg>
+      </div>
+      <figcaption>
+        <b>12. London Tube</b>
+        <div class="sw"><i style="background:#1A1D22"></i><i style="background:#000000"></i><i style="background:#FFFFFF"></i><i style="background:#E32017"></i></div>
+        <div class="hex">#1A1D22 · #000000 · #FFFFFF · #E32017</div>
+        <div class="note">伦敦地铁中央线红 #E32017</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p12" xlink:href="#p12"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p12" xlink:href="#p12"/></svg>
+      </div>
+      <figcaption>
+        <b>13. NYC MTA</b>
+        <div class="sw"><i style="background:#0039A6"></i><i style="background:#002569"></i><i style="background:#FFFFFF"></i><i style="background:#FF6319"></i></div>
+        <div class="hex">#0039A6 · #002569 · #FFFFFF · #FF6319</div>
+        <div class="note">纽约 A/C/E 蓝底 + B/D/F 橙</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p13" xlink:href="#p13"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p13" xlink:href="#p13"/></svg>
+      </div>
+      <figcaption>
+        <b>14. Paris Metro</b>
+        <div class="sw"><i style="background:#1B5E4B"></i><i style="background:#06251C"></i><i style="background:#FFFFFF"></i><i style="background:#FFCD00"></i></div>
+        <div class="hex">#1B5E4B · #06251C · #FFFFFF · #FFCD00</div>
+        <div class="note">巴黎地铁绿 + 黄</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p14" xlink:href="#p14"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p14" xlink:href="#p14"/></svg>
+      </div>
+      <figcaption>
+        <b>15. Berlin U-Bahn</b>
+        <div class="sw"><i style="background:#0057B8"></i><i style="background:#002E63"></i><i style="background:#FFFFFF"></i><i style="background:#F0AB00"></i></div>
+        <div class="hex">#0057B8 · #002E63 · #FFFFFF · #F0AB00</div>
+        <div class="note">柏林 U-Bahn 蓝 + 黄</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p15" xlink:href="#p15"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p15" xlink:href="#p15"/></svg>
+      </div>
+      <figcaption>
+        <b>16. HK MTR</b>
+        <div class="sw"><i style="background:#2A0A10"></i><i style="background:#0B0305"></i><i style="background:#FFFFFF"></i><i style="background:#E60012"></i></div>
+        <div class="hex">#2A0A10 · #0B0305 · #FFFFFF · #E60012</div>
+        <div class="note">港铁企业红 #E60012</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p16" xlink:href="#p16"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p16" xlink:href="#p16"/></svg>
+      </div>
+      <figcaption>
+        <b>17. Shenzhen Cyan</b>
+        <div class="sw"><i style="background:#00514F"></i><i style="background:#001F1E"></i><i style="background:#FFFFFF"></i><i style="background:#00E5D0"></i></div>
+        <div class="hex">#00514F · #001F1E · #FFFFFF · #00E5D0</div>
+        <div class="note">青绿，深圳/广州线路调</div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="row">
+        <svg class="ic" width="132" height="132" viewBox="0 0 1024 1024"><use href="#p17" xlink:href="#p17"/></svg>
+        <svg class="ic" width="44" height="44" viewBox="0 0 1024 1024"><use href="#p17" xlink:href="#p17"/></svg>
+      </div>
+      <figcaption>
+        <b>18. Purple Line</b>
+        <div class="sw"><i style="background:#4B2E83"></i><i style="background:#1B0F33"></i><i style="background:#FFFFFF"></i><i style="background:#FFC845"></i></div>
+        <div class="hex">#4B2E83 · #1B0F33 · #FFFFFF · #FFC845</div>
+        <div class="note">紫金组合，辨识度高</div>
+      </figcaption>
+    </figure>
+  </div>
+
+  <h2>壁纸环境校验</h2>
+  <p>挑了 Tokyo Ginza、London Tube、Paris Metro、Pure Mono 四套放到三种壁纸上。</p>
+  <div class="walls">
+    <div>
+      <div class="wall w1">
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p10" xlink:href="#p10"/></svg>
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p11" xlink:href="#p11"/></svg>
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p13" xlink:href="#p13"/></svg>
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p5" xlink:href="#p5"/></svg>
+      </div><div class="cap">浅色壁纸</div>
+    </div>
+    <div>
+      <div class="wall w2">
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p10" xlink:href="#p10"/></svg>
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p11" xlink:href="#p11"/></svg>
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p13" xlink:href="#p13"/></svg>
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p5" xlink:href="#p5"/></svg>
+      </div><div class="cap">深色壁纸</div>
+    </div>
+    <div>
+      <div class="wall w3">
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p10" xlink:href="#p10"/></svg>
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p11" xlink:href="#p11"/></svg>
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p13" xlink:href="#p13"/></svg>
+        <svg class="ic" width="72" height="72" viewBox="0 0 1024 1024"><use href="#p5" xlink:href="#p5"/></svg>
+      </div><div class="cap">彩色壁纸</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

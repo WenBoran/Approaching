@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Approaching app icon">
+  <title>Approaching</title>
+  <desc>A light arc with a coral dot resting on it — the line, and the nearest station on it.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#6FD7FF"/>
+      <stop offset="1" stop-color="#39BDF0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 底：iOS 自行套用 squircle 遮罩，AppIcon 需提交无圆角方图 -->
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <!-- 线路：上拱的弧，圆头收边 -->
+  <path d="M190 700A322 322 0 0 1 834 700"
+        fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round"/>
+
+  <!-- 最近的那一站 -->
+  <circle cx="697" cy="436" r="78" fill="#FF6B54"/>
+</svg>
