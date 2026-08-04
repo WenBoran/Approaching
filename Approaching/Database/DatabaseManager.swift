@@ -57,11 +57,106 @@ final class DatabaseManager {
         return stations
     }
 
+    func nearestStationStatus(latitude: Double, longitude: Double,
+                              now: Date = Date()) -> NearestStationStatus? {
+        guard let station = nearestStation(latitude: latitude, longitude: longitude),
+              let db else { return nil }
+
+        let distance = distance(latitude, longitude, station.latitude, station.longitude)
+        let directions = nextArrivals(for: station.id, now: now, db: db)
+
+        return NearestStationStatus(
+            stationName: station.name,
+            lineName: lineName(for: station.id, db: db) ?? "地铁",
+            distanceInMeters: distance,
+            directions: directions,
+            updatedAt: now
+        )
+    }
+
     func nearestStation(latitude: Double, longitude: Double) -> Station? {
         allStations().min { lhs, rhs in
             distance(latitude, longitude, lhs.latitude, lhs.longitude)
                 < distance(latitude, longitude, rhs.latitude, rhs.longitude)
         }
+    }
+
+    private func lineName(for stationID: Int, db: OpaquePointer) -> String? {
+        let sql = "SELECT l.name FROM station s JOIN line l ON l.id = s.line_id WHERE s.id = ?;"
+        var statement: OpaquePointer?
+        guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else { return nil }
+        defer { sqlite3_finalize(statement) }
+        sqlite3_bind_int(statement, 1, Int32(stationID))
+        guard sqlite3_step(statement) == SQLITE_ROW,
+              let name = sqlite3_column_text(statement, 0) else { return nil }
+        return String(cString: name)
+    }
+
+    private func nextArrivals(for stationID: Int, now: Date,
+                              db: OpaquePointer) -> [DirectionArrival] {
+        let sql = """
+        SELECT d.id, d.name, ss.service_type_key, p.departure_time
+        FROM direction d
+        JOIN service_schedule ss ON ss.direction_id = d.id
+        JOIN departure p ON p.schedule_id = ss.id
+        WHERE d.station_id = ?
+        ORDER BY d.id, p.sequence;
+        """
+        var statement: OpaquePointer?
+        guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else { return [] }
+        defer { sqlite3_finalize(statement) }
+        sqlite3_bind_int(statement, 1, Int32(stationID))
+
+        let calendarWeekday = Calendar.current.component(.weekday, from: now)
+        let weekday = (calendarWeekday + 5) % 7 + 1
+        var directionNames: [Int: String] = [:]
+        var departureDates: [Int: Set<Date>] = [:]
+        while sqlite3_step(statement) == SQLITE_ROW {
+            let directionID = Int(sqlite3_column_int(statement, 0))
+            guard let directionNamePtr = sqlite3_column_text(statement, 1),
+                  let serviceKeyPtr = sqlite3_column_text(statement, 2),
+                  let timePtr = sqlite3_column_text(statement, 3) else { continue }
+            let serviceKey = String(cString: serviceKeyPtr)
+            guard serviceKeyApplies(serviceKey, weekday: weekday) else { continue }
+
+            let directionName = String(cString: directionNamePtr)
+            let departureTime = String(cString: timePtr)
+            directionNames[directionID] = directionName
+            guard let departureDate = departureDate(for: departureTime, on: now) else { continue }
+            departureDates[directionID, default: []].insert(departureDate)
+        }
+
+        return directionNames.keys.sorted().map { directionID in
+            DirectionArrival(
+                id: directionID,
+                directionName: directionNames[directionID] ?? "",
+                arrivalDates: departureDates[directionID, default: []].sorted()
+            )
+        }
+    }
+
+    private func serviceKeyApplies(_ serviceKey: String, weekday: Int) -> Bool {
+        guard serviceKey.hasPrefix("weekday_") else { return false }
+        let applicableDays = serviceKey
+            .dropFirst("weekday_".count)
+            .split(separator: "_")
+            .compactMap { Int(String($0)) }
+        return applicableDays.contains(weekday)
+    }
+
+    private func departureDate(for time: String, on serviceDate: Date) -> Date? {
+        let parts = time.split(separator: ":").compactMap { Int($0) }
+        guard parts.count == 2, parts[0] >= 0, parts[0] <= 24,
+              parts[1] >= 0, parts[1] < 60 else { return nil }
+        var calendar = Calendar.current
+        calendar.timeZone = .current
+        var components = calendar.dateComponents([.year, .month, .day], from: serviceDate)
+        let isNextDay = parts[0] == 24
+        components.hour = isNextDay ? 0 : parts[0]
+        components.minute = parts[1]
+        components.second = 0
+        guard let date = calendar.date(from: components) else { return nil }
+        return isNextDay ? calendar.date(byAdding: .day, value: 1, to: date) : date
     }
 
     /// Haversine distance in meters.

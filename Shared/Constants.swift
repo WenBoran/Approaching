@@ -20,4 +20,5 @@ enum StorageKey {
     static let latitude = "latitude"
     static let longitude = "longitude"
     static let lastUpdateTime = "lastUpdateTime"
+    static let directionArrivals = "directionArrivals"
 }

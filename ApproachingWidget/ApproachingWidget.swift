@@ -14,7 +14,7 @@ struct ApproachingWidget: Widget {
             WidgetView(entry: entry)
         }
         .configurationDisplayName("Approaching")
-        .description("显示最近的地铁站与当前时间")
+        .description("显示最近的地铁站与两个方向的到站时间")
         .supportedFamilies([.systemSmall])
     }
 }

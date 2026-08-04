@@ -9,13 +9,17 @@ import SwiftUI
 
 @main
 struct ApproachingApp: App {
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var locationManager = LocationManager()
 
     var body: some Scene {
         WindowGroup {
             ContentView(locationManager: locationManager)
                 .onAppear {
-                    locationManager.requestPermission()
+                    locationManager.refreshLocation()
+                }
+                .onChange(of: scenePhase) { _, newPhase in
+                    guard newPhase == .active else { return }
                     locationManager.refreshLocation()
                 }
         }

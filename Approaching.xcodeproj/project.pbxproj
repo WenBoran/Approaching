@@ -353,6 +353,7 @@
 				CODE_SIGN_ENTITLEMENTS = Approaching.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3692YF56Z9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要使用定位来计算距离你最近的地铁站。";
@@ -386,6 +387,7 @@
 				CODE_SIGN_ENTITLEMENTS = Approaching.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3692YF56Z9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要使用定位来计算距离你最近的地铁站。";
@@ -417,6 +419,7 @@
 				CODE_SIGN_ENTITLEMENTS = ApproachingWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3692YF56Z9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ApproachingWidget-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Approaching;
@@ -446,6 +449,7 @@
 				CODE_SIGN_ENTITLEMENTS = ApproachingWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3692YF56Z9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ApproachingWidget-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Approaching;
