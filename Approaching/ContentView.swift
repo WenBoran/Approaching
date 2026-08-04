@@ -5,8 +5,8 @@
 //  Created by wenboran on 2026/7/31.
 //
 
-import SwiftUI
 import CoreLocation
+import SwiftUI
 import UIKit
 
 struct ContentView: View {
@@ -14,72 +14,115 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    statusContent
+            content
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(AppTheme.pageBackground)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        HStack(spacing: AppMetrics.spacingS) {
+                            ApproachingMark()
+                                .frame(width: 24, height: 24)
+                            Text("Approaching")
+                                .font(.headline)
+                                .foregroundStyle(AppTheme.primaryText)
+                        }
+                    }
 
-                    if let status = locationManager.nearestStationStatus {
-                        NearestStationStatusView(
-                            status: status,
-                            address: locationManager.currentAddress
-                        )
+                    if canRefreshLocation {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                refreshLocation()
+                            } label: {
+                                Image(systemName: "location")
+                                    .frame(width: 30, height: 30)
+                            }
+                            .accessibilityLabel("刷新定位")
+                        }
                     }
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal)
-                .padding(.bottom, 24)
-            }
-            .background(Color(uiColor: .systemGroupedBackground))
-            .navigationTitle("Approaching")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("刷新定位", systemImage: "location") {
-                        refreshLocation()
-                    }
-                }
-            }
+                .toolbarBackground(AppTheme.pageBackground, for: .navigationBar)
+                .tint(AppTheme.accent)
         }
     }
 
     @ViewBuilder
-    private var statusContent: some View {
+    private var content: some View {
         switch locationManager.authorizationStatus {
         case .notDetermined:
-            ContentUnavailableView {
-                Label("需要位置权限", systemImage: "location.circle")
-            } description: {
-                Text("用于查找距离当前位置最近的地铁站")
-            } actions: {
-                Button("允许定位") {
-                    locationManager.requestPermission()
-                }
-                .buttonStyle(.borderedProminent)
-            }
-            .padding(.top, 56)
+            permissionView
         case .authorizedWhenInUse, .authorizedAlways:
-            if locationManager.nearestStationStatus == nil {
-                VStack(spacing: 12) {
-                    ProgressView()
-                    Text("正在查找附近地铁站")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-                .padding(.top, 72)
+            if let status = locationManager.nearestStationStatus {
+                NearestStationStatusView(
+                    status: status,
+                    address: locationManager.currentAddress
+                )
+            } else {
+                loadingView
             }
         case .denied, .restricted:
-            ContentUnavailableView {
-                Label("定位服务已关闭", systemImage: "location.slash")
-            } description: {
-                Text("请在系统设置中允许 Approaching 使用位置")
-            } actions: {
-                Button("打开设置") {
-                    openSettings()
-                }
-                .buttonStyle(.borderedProminent)
-            }
-            .padding(.top, 56)
+            deniedView
         @unknown default:
             EmptyView()
+        }
+    }
+
+    private var canRefreshLocation: Bool {
+        switch locationManager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            return true
+        default:
+            return false
+        }
+    }
+
+    private var permissionView: some View {
+        ContentUnavailableView {
+            ApproachingMark()
+                .frame(width: 64, height: 64)
+                .padding(.bottom, AppMetrics.spacingS)
+            Text("找到离你最近的地铁站")
+                .font(.title3.weight(.semibold))
+                .foregroundStyle(AppTheme.primaryText)
+        } description: {
+            Text("位置仅用于在本地站点库中计算距离")
+                .foregroundStyle(AppTheme.secondaryText)
+        } actions: {
+            Button("允许定位") {
+                locationManager.requestPermission()
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+        }
+    }
+
+    private var loadingView: some View {
+        VStack(spacing: AppMetrics.spacingL) {
+            ApproachingMark()
+                .frame(width: 56, height: 56)
+            ProgressView()
+                .controlSize(.large)
+                .tint(AppTheme.accent)
+            Text("正在查找附近车站")
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(AppTheme.secondaryText)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private var deniedView: some View {
+        ContentUnavailableView {
+            Label("定位服务已关闭", systemImage: "location.slash")
+                .foregroundStyle(AppTheme.primaryText)
+        } description: {
+            Text("请在系统设置中允许 Approaching 使用位置")
+                .foregroundStyle(AppTheme.secondaryText)
+        } actions: {
+            Button("打开设置") {
+                openSettings()
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
         }
     }
 
@@ -97,13 +140,32 @@ struct ContentView: View {
 private struct NearestStationStatusView: View {
     let status: NearestStationStatus
     let address: String?
+    @State private var favorites = AppGroupStore.favoriteDirections()
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         TimelineView(.periodic(from: currentMinuteStart, by: 60)) { context in
-            VStack(alignment: .leading, spacing: 20) {
-                stationHeader
-                arrivalPanel(at: context.date)
+            ScrollView {
+                VStack(spacing: AppMetrics.spacingL) {
+                    stationCard
+
+                    if status.lines.isEmpty {
+                        emptyCard
+                    } else {
+                        ForEach(status.lines) { line in
+                            lineCard(line, at: context.date)
+                        }
+                    }
+
+                    Text("班次来自本地时刻表，仅供参考")
+                        .font(.caption)
+                        .foregroundStyle(AppTheme.secondaryText)
+                        .padding(.top, AppMetrics.spacingXS)
+                }
+                .padding(.horizontal, AppMetrics.spacingL)
+                .padding(.vertical, AppMetrics.spacingL)
             }
+            .background(AppTheme.pageBackground)
         }
     }
 
@@ -111,121 +173,120 @@ private struct NearestStationStatusView: View {
         Calendar.current.dateInterval(of: .minute, for: Date())?.start ?? Date()
     }
 
-    private var stationHeader: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("最近的地铁站")
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(.secondary)
+    private var stationCard: some View {
+        AppCard {
+            Text("最近车站")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(AppTheme.secondaryText)
+                .textCase(.uppercase)
 
-            HStack(alignment: .firstTextBaseline, spacing: 10) {
-                Text(status.stationName)
-                    .font(.largeTitle.weight(.bold))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
-
-                Text(status.lineName)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(.tint)
-                    .lineLimit(1)
-            }
-
-            Label(address ?? "当前位置", systemImage: "location.fill")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+            Text(status.stationName)
+                .font(.largeTitle.weight(.bold))
+                .fontDesign(.rounded)
+                .foregroundStyle(AppTheme.primaryText)
                 .lineLimit(2)
+                .minimumScaleFactor(0.72)
 
-            HStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: AppMetrics.spacingS) {
+                Label(address ?? "当前位置", systemImage: "location.fill")
+                    .lineLimit(2)
                 Label(status.formattedDistance, systemImage: "figure.walk")
-                Label {
-                    Text(status.updatedAt, style: .relative)
-                } icon: {
-                    Image(systemName: "clock")
-                }
             }
             .font(.caption)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(AppTheme.secondaryText)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.top, 8)
-    }
-
-    private func arrivalPanel(at referenceDate: Date) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Text("下一班车")
-                    .font(.headline)
-                Spacer()
-                Text("本地时刻表")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-
-            Divider()
-                .padding(.leading, 16)
-
-            if status.directions.isEmpty {
-                Label("当前时段暂无可用班次", systemImage: "calendar.badge.exclamationmark")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(16)
-            } else {
-                ForEach(Array(status.directions.prefix(2).enumerated()), id: \.element.id) { index, arrival in
-                    arrivalRow(arrival, at: referenceDate)
-                    if index < min(status.directions.count, 2) - 1 {
-                        Divider()
-                            .padding(.leading, 52)
-                    }
-                }
-            }
-        }
-        .background(Color(uiColor: .secondarySystemGroupedBackground),
-                    in: RoundedRectangle(cornerRadius: 8))
-    }
-
-    private func arrivalRow(_ arrival: DirectionArrival, at referenceDate: Date) -> some View {
-        HStack(spacing: 12) {
-            Image(systemName: "arrow.right.circle.fill")
-                .font(.title3)
-                .foregroundStyle(.tint)
-                .frame(width: 24)
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text("开往")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                Text(arrival.directionName)
-                    .font(.body.weight(.medium))
-                    .lineLimit(1)
-            }
-
-            Spacer(minLength: 12)
-
-            if let minutes = arrival.remainingMinutes(at: referenceDate) {
-                if minutes == 0 {
-                    Text("即将到站")
-                        .font(.headline)
-                        .foregroundStyle(.red)
-                } else {
-                    HStack(alignment: .firstTextBaseline, spacing: 3) {
-                        Text("\(minutes)")
-                            .font(.title2.weight(.semibold).monospacedDigit())
-                        Text("分钟")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    .foregroundStyle(minutes <= 2 ? .red : .primary)
-                }
-            } else {
-                Text("今日结束")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
         .accessibilityElement(children: .combine)
+    }
+
+    private var emptyCard: some View {
+        AppCard {
+            Label("当前时段暂无可用班次", systemImage: "calendar.badge.exclamationmark")
+                .font(.subheadline)
+                .foregroundStyle(AppTheme.secondaryText)
+        }
+    }
+
+    private func lineCard(_ line: LineArrivals, at referenceDate: Date) -> some View {
+        AppCard {
+            HStack(spacing: AppMetrics.spacingS) {
+                LineBadge(lineName: line.lineName)
+                Spacer()
+                Text("\(line.directions.count) 个方向")
+                    .font(.caption)
+                    .foregroundStyle(AppTheme.secondaryText)
+            }
+
+            VStack(spacing: 0) {
+                ForEach(Array(line.directions.enumerated()), id: \.element.id) { index, direction in
+                    directionRow(direction, on: line, at: referenceDate)
+                    if index < line.directions.count - 1 {
+                        Divider()
+                            .overlay(AppTheme.separator)
+                    }
+                }
+            }
+        }
+    }
+
+    private func directionRow(_ direction: DirectionArrival,
+                              on line: LineArrivals,
+                              at referenceDate: Date) -> some View {
+        let favorite = favoriteKey(line: line, direction: direction)
+        let isFavorite = favorites.contains(favorite)
+
+        return ArrivalRow(
+            lineName: line.lineName,
+            directionName: direction.directionName,
+            minutes: direction.remainingMinutes(at: referenceDate),
+            isFavorite: isFavorite,
+            showsLineBadge: false
+        ) {
+            Button {
+                toggleFavorite(favorite, line: line, direction: direction, at: referenceDate)
+            } label: {
+                Image(systemName: isFavorite ? "heart.fill" : "heart")
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(isFavorite ? AppTheme.urgent : AppTheme.secondaryText)
+                    .frame(width: AppMetrics.tapTarget, height: AppMetrics.tapTarget)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.borderless)
+            .accessibilityLabel(isFavorite ? "取消优先显示" : "优先显示此方向")
+            .accessibilityHint("收藏的方向会优先显示在桌面组件中")
+        }
+    }
+
+    private func toggleFavorite(_ favorite: FavoriteDirection,
+                               line: LineArrivals,
+                               direction: DirectionArrival,
+                               at referenceDate: Date) {
+        let update = {
+            let selected = StationService.toggleFavorite(
+                station: status,
+                line: line,
+                direction: direction,
+                now: referenceDate
+            )
+            if selected {
+                favorites.insert(favorite)
+            } else {
+                favorites.remove(favorite)
+            }
+        }
+        if reduceMotion {
+            update()
+        } else {
+            withAnimation(.easeInOut(duration: 0.2), update)
+        }
+    }
+
+    private func favoriteKey(line: LineArrivals,
+                             direction: DirectionArrival) -> FavoriteDirection {
+        FavoriteDirection(
+            city: status.city,
+            stationName: status.stationName,
+            lineName: line.lineName,
+            directionName: direction.directionName
+        )
     }
 }

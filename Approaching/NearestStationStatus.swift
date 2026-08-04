@@ -10,12 +10,22 @@ struct DirectionArrival: Identifiable, Equatable {
     }
 }
 
+struct LineArrivals: Identifiable, Equatable {
+    let id: Int
+    let lineName: String
+    let directions: [DirectionArrival]
+}
+
 struct NearestStationStatus: Equatable {
     let stationName: String
-    let lineName: String
+    let city: String
     let distanceInMeters: Double
-    let directions: [DirectionArrival]
+    let lines: [LineArrivals]
     let updatedAt: Date
+
+    var directions: [DirectionArrival] {
+        lines.flatMap(\.directions)
+    }
 
     var formattedDistance: String {
         if distanceInMeters < 1_000 {

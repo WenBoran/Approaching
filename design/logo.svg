@@ -1,21 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Approaching app icon">
   <title>Approaching</title>
-  <desc>A light arc with a coral dot resting on it — the line, and the nearest station on it.</desc>
+  <desc>A compact metro station sign with a station-name bar and a highlighted route line.</desc>
 
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2=".4" y2="1">
-      <stop offset="0" stop-color="#6FD7FF"/>
-      <stop offset="1" stop-color="#39BDF0"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.45" y2="1">
+      <stop offset="0" stop-color="#FFF4E6"/>
+      <stop offset="1" stop-color="#F0D9BE"/>
     </linearGradient>
   </defs>
 
-  <!-- 底：iOS 自行套用 squircle 遮罩，AppIcon 需提交无圆角方图 -->
+  <!-- iOS applies the final squircle mask; AppIcon source remains square. -->
   <rect width="1024" height="1024" fill="url(#bg)"/>
 
-  <!-- 线路：上拱的弧，圆头收边 -->
-  <path d="M190 700A322 322 0 0 1 834 700"
-        fill="none" stroke="#FFFFFF" stroke-width="104" stroke-linecap="round"/>
+  <!-- Soft offset layer keeps the sign readable at small sizes. -->
+  <rect x="198" y="310" width="628" height="404" rx="112" fill="#F0D9BE"/>
 
-  <!-- 最近的那一站 -->
-  <circle cx="697" cy="436" r="78" fill="#FF6B54"/>
+  <!-- Station sign. -->
+  <rect x="186" y="284" width="628" height="404" rx="112" fill="#4A3628"/>
+
+  <!-- Station-name line and highlighted route line. -->
+  <rect x="288" y="382" width="264" height="64" rx="32" fill="#FFF4E6"/>
+  <rect x="288" y="526" width="420" height="54" rx="27" fill="#E0552B"/>
 </svg>

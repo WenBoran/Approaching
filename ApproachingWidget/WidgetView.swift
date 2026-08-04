@@ -10,88 +10,69 @@ import WidgetKit
 struct WidgetView: View {
     var entry: StationEntry
 
+    private var directions: [StationDirectionSnapshot] {
+        Array(entry.directions.prefix(AppConstants.widgetDirectionCount))
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 7) {
-                Image(systemName: "tram.fill")
-                    .font(.subheadline)
-                    .symbolRenderingMode(.hierarchical)
-                    .foregroundStyle(.tint)
+        VStack(alignment: .leading, spacing: AppMetrics.spacingS) {
+            header
 
-                Text(entry.stationName)
-                    .font(.headline)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
-
-                Spacer(minLength: 0)
-            }
-
-            Spacer(minLength: 8)
-
-            if entry.directions.isEmpty {
-                VStack(alignment: .leading, spacing: 5) {
-                    Image(systemName: "location.slash")
-                        .font(.title3)
-                        .foregroundStyle(.secondary)
-                    Text("打开 App 更新位置")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+            if directions.isEmpty {
+                emptyState
             } else {
                 VStack(spacing: 0) {
-                    ForEach(Array(entry.directions.prefix(2).enumerated()), id: \.element.name) { index, direction in
-                        directionRow(direction)
-                        if index < min(entry.directions.count, 2) - 1 {
-                            Divider()
+                    ForEach(Array(directions.enumerated()), id: \.element.name) { index, direction in
+                        ArrivalRow(
+                            lineName: direction.lineName,
+                            directionName: direction.name,
+                            minutes: direction.remainingMinutes(at: entry.date),
+                            isFavorite: direction.isFavorite,
+                            compact: true
+                        )
+                        .accessibilityElement(children: .combine)
+
+                        if index < directions.count - 1 {
+                            Rectangle()
+                                .fill(AppTheme.separator)
+                                .frame(height: 1)
                         }
                     }
                 }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .containerBackground(.fill.tertiary, for: .widget)
+        .containerBackground(AppTheme.surface, for: .widget)
     }
 
-    private func directionRow(_ direction: StationDirectionSnapshot) -> some View {
-        HStack(alignment: .center, spacing: 8) {
-            VStack(alignment: .leading, spacing: 1) {
-                Text("开往")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-                Text(direction.name)
-                    .font(.caption.weight(.medium))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
-            }
+    private var header: some View {
+        HStack(spacing: AppMetrics.spacingXS) {
+            ApproachingMark()
+                .frame(width: 18, height: 18)
+                .widgetAccentable()
 
-            Spacer(minLength: 2)
+            Text(entry.stationName)
+                .font(.subheadline.weight(.bold))
+                .fontDesign(.rounded)
+                .foregroundStyle(AppTheme.primaryText)
+                .lineLimit(1)
+                .minimumScaleFactor(0.72)
 
-            if let minutes = direction.remainingMinutes(at: entry.date) {
-                if minutes == 0 {
-                    Text("即将到站")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(.red)
-                        .lineLimit(1)
-                } else {
-                    HStack(alignment: .firstTextBaseline, spacing: 2) {
-                        Text("\(minutes)")
-                            .font(.title3.weight(.semibold).monospacedDigit())
-                        Text("分")
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
-                    }
-                    .foregroundStyle(minutes <= 2 ? .red : .primary)
-                }
-            } else {
-                Text("今日结束")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
-            }
+            Spacer(minLength: 0)
         }
-        .frame(minHeight: 42)
         .accessibilityElement(children: .combine)
+        .accessibilityLabel("最近车站，\(entry.stationName)")
     }
 
+    private var emptyState: some View {
+        VStack(alignment: .leading, spacing: AppMetrics.spacingXS) {
+            Image(systemName: "location.slash")
+                .font(.title3)
+                .foregroundStyle(AppTheme.accent)
+            Text("打开 App 更新位置")
+                .font(.caption.weight(.medium))
+                .foregroundStyle(AppTheme.secondaryText)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+    }
 }

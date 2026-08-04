@@ -19,12 +19,16 @@ struct Provider: TimelineProvider {
             stationName: "西二旗",
             directions: [
                 StationDirectionSnapshot(
+                    lineName: "13号线",
                     name: "昌平西山口",
-                    arrivalDates: [now.addingTimeInterval(3 * 60), now.addingTimeInterval(9 * 60)]
+                    arrivalDates: [now.addingTimeInterval(3 * 60), now.addingTimeInterval(9 * 60)],
+                    isFavorite: true
                 ),
                 StationDirectionSnapshot(
+                    lineName: "昌平线",
                     name: "西土城",
-                    arrivalDates: [now.addingTimeInterval(7 * 60), now.addingTimeInterval(13 * 60)]
+                    arrivalDates: [now.addingTimeInterval(7 * 60), now.addingTimeInterval(13 * 60)],
+                    isFavorite: false
                 )
             ]
         )

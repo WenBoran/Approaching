@@ -62,14 +62,42 @@ final class DatabaseManager {
         guard let station = nearestStation(latitude: latitude, longitude: longitude),
               let db else { return nil }
 
-        let distance = distance(latitude, longitude, station.latitude, station.longitude)
-        let directions = nextArrivals(for: station.id, now: now, db: db)
+        let interchangeStations = stations(
+            matching: station,
+            withinMeters: 200
+        )
+        // An interchange is stored as one `station` row per line, so merge every row
+        // that shares the same name into a single per-line entry.
+        var lineNames: [Int: String] = [:]
+        var lineDirections: [Int: [DirectionArrival]] = [:]
+        for interchange in interchangeStations {
+            guard let line = lineInfo(for: interchange.id, db: db) else { continue }
+            let directions = nextArrivals(for: interchange.id, now: now, db: db)
+            guard !directions.isEmpty else { continue }
+            lineNames[line.id] = line.name
+            var merged = lineDirections[line.id, default: []]
+            for direction in directions
+            where !merged.contains(where: { $0.directionName == direction.directionName }) {
+                merged.append(direction)
+            }
+            lineDirections[line.id] = merged
+        }
+
+        let lines = lineNames.map { lineID, lineName in
+            LineArrivals(
+                id: lineID,
+                lineName: lineName,
+                directions: lineDirections[lineID, default: []]
+                    .sorted { $0.directionName.localizedStandardCompare($1.directionName) == .orderedAscending }
+            )
+        }
+        .sorted { $0.lineName.localizedStandardCompare($1.lineName) == .orderedAscending }
 
         return NearestStationStatus(
             stationName: station.name,
-            lineName: lineName(for: station.id, db: db) ?? "地铁",
-            distanceInMeters: distance,
-            directions: directions,
+            city: station.city,
+            distanceInMeters: distance(latitude, longitude, station.latitude, station.longitude),
+            lines: lines,
             updatedAt: now
         )
     }
@@ -81,15 +109,28 @@ final class DatabaseManager {
         }
     }
 
-    private func lineName(for stationID: Int, db: OpaquePointer) -> String? {
-        let sql = "SELECT l.name FROM station s JOIN line l ON l.id = s.line_id WHERE s.id = ?;"
+    private func stations(matching station: Station, withinMeters radius: Double) -> [Station] {
+        allStations().filter { candidate in
+            candidate.city == station.city
+                && candidate.name == station.name
+                && distance(
+                    station.latitude,
+                    station.longitude,
+                    candidate.latitude,
+                    candidate.longitude
+                ) <= radius
+        }
+    }
+
+    private func lineInfo(for stationID: Int, db: OpaquePointer) -> (id: Int, name: String)? {
+        let sql = "SELECT l.id, l.name FROM station s JOIN line l ON l.id = s.line_id WHERE s.id = ?;"
         var statement: OpaquePointer?
         guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else { return nil }
         defer { sqlite3_finalize(statement) }
         sqlite3_bind_int(statement, 1, Int32(stationID))
         guard sqlite3_step(statement) == SQLITE_ROW,
-              let name = sqlite3_column_text(statement, 0) else { return nil }
-        return String(cString: name)
+              let name = sqlite3_column_text(statement, 1) else { return nil }
+        return (Int(sqlite3_column_int(statement, 0)), String(cString: name))
     }
 
     private func nextArrivals(for stationID: Int, now: Date,
