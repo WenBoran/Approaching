@@ -72,27 +72,7 @@ enum StationService {
                                            latitude: Double,
                                            longitude: Double,
                                            now: Date) {
-        let favorites = AppGroupStore.favoriteDirections()
-        var seen = Set<String>()
-        let all = status.lines.flatMap { line in
-            line.directions.map { direction in
-                let favorite = FavoriteDirection(
-                    city: status.city,
-                    stationName: status.stationName,
-                    lineName: line.lineName,
-                    directionName: direction.directionName
-                )
-                return StationDirectionSnapshot(
-                    lineName: line.lineName,
-                    name: direction.directionName,
-                    arrivalDates: direction.arrivalDates,
-                    isFavorite: favorites.contains(favorite)
-                )
-            }
-        }
-        .filter { seen.insert("\($0.lineName)|\($0.name)").inserted }
-
-        let selected = widgetDirections(from: all, now: now)
+        let selected = status.isCitySupported ? widgetDirections(for: status, now: now) : []
 
         AppGroupStore.save(
             stationName: status.stationName,
@@ -107,6 +87,34 @@ enum StationService {
         logger.info("Nearest station: \(status.stationName, privacy: .public), distance=\(status.distanceInMeters, privacy: .public)m, widgetDirections=[\(directionSummary, privacy: .public)]")
         WidgetCenter.shared.reloadTimelines(ofKind: AppConstants.widgetKind)
         logger.debug("Requested Widget timeline reload for \(AppConstants.widgetKind, privacy: .public)")
+    }
+
+    /// Flattens a station status into the directions the widget shows. Used by the app
+    /// when writing the snapshot, and by the widget when it recomputes arrivals itself.
+    static func widgetDirections(for status: NearestStationStatus,
+                                 now: Date) -> [StationDirectionSnapshot] {
+        let favorites = AppGroupStore.favoriteDirections()
+        var seen = Set<String>()
+        let all = status.lines.flatMap { line in
+            line.directions.map { direction in
+                let favorite = FavoriteDirection(
+                    city: status.city,
+                    stationName: status.stationName,
+                    lineName: line.lineName,
+                    directionName: direction.directionName
+                )
+                return StationDirectionSnapshot(
+                    stationName: status.stationName,
+                    lineName: line.lineName,
+                    name: direction.directionName,
+                    arrivalDates: direction.arrivalDates,
+                    isFavorite: favorites.contains(favorite)
+                )
+            }
+        }
+        .filter { seen.insert("\($0.lineName)|\($0.name)").inserted }
+
+        return widgetDirections(from: all, now: now)
     }
 
     /// Favorites at the nearest station come first (soonest departure first);

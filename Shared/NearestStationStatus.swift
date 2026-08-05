@@ -27,6 +27,12 @@ struct NearestStationStatus: Equatable {
         lines.flatMap(\.directions)
     }
 
+    /// `false` when the nearest station is too far away to be useful, i.e. the
+    /// user is in a city the bundled timetable does not cover.
+    var isCitySupported: Bool {
+        distanceInMeters <= AppConstants.supportedRadiusInMeters
+    }
+
     var formattedDistance: String {
         if distanceInMeters < 1_000 {
             return "约 \(Int(distanceInMeters.rounded())) 米"

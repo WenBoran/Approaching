@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Approaching app icon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Approaching app icon">
   <title>Approaching</title>
   <desc>A compact metro station sign with a station-name bar and a highlighted route line.</desc>
 
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0.45" y2="1">
-      <stop offset="0" stop-color="#FFF4E6"/>
-      <stop offset="1" stop-color="#F0D9BE"/>
+      <stop offset="0" stop-color="#FAF3E9"/>
+      <stop offset="1" stop-color="#FAF3E9"/>
     </linearGradient>
   </defs>
 
@@ -13,12 +13,12 @@
   <rect width="1024" height="1024" fill="url(#bg)"/>
 
   <!-- Soft offset layer keeps the sign readable at small sizes. -->
-  <rect x="198" y="310" width="628" height="404" rx="112" fill="#F0D9BE"/>
+  <rect x="198" y="310" width="628" height="404" rx="112" fill="#FAEDD1"/>
 
   <!-- Station sign. -->
-  <rect x="186" y="284" width="628" height="404" rx="112" fill="#4A3628"/>
+  <rect x="186" y="284" width="628" height="404" rx="112" fill="#1387C0"/>
 
   <!-- Station-name line and highlighted route line. -->
-  <rect x="288" y="382" width="264" height="64" rx="32" fill="#FFF4E6"/>
-  <rect x="288" y="526" width="420" height="54" rx="27" fill="#E0552B"/>
+  <rect x="288" y="382" width="264" height="64" rx="32" fill="#FAEDD1"/>
+  <rect x="288" y="526" width="420" height="54" rx="27" fill="#F4520D"/>
 </svg>

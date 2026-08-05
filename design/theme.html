@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approaching · UI 配色对照</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; background:#E9ECF0; padding:40px 24px 90px;
+    font:13px/1.65 -apple-system,"SF Pro Text","PingFang SC",system-ui,sans-serif; color:#5A6A7A; }
+  .wrap { max-width:1240px; margin:0 auto; }
+  h1 { margin:0 0 8px; font:700 24px/1.3 -apple-system,system-ui,sans-serif; letter-spacing:-.02em; color:#0F2233; }
+  h2 { margin:0 0 2px; font:600 17px/1.4 -apple-system,system-ui,sans-serif; color:#0F2233; }
+  p { margin:0 0 10px; max-width:860px; }
+  code { font:12px/1 ui-monospace,monospace; background:#DCE2E9; padding:1px 5px; border-radius:4px; }
+  b.k { color:#0F2233; }
+
+  section { margin-top:44px; padding-top:26px; border-top:1px solid #D3DAE2; }
+  section:first-of-type { border-top:0; }
+  .badge { display:inline-block; font:600 10px/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.06em; text-transform:uppercase; padding:4px 7px; border-radius:5px;
+    background:#0F2233; color:#fff; vertical-align:3px; margin-left:8px; }
+  .badge.now { background:#8A96A3; }
+  .sw { display:flex; gap:4px; margin:10px 0 2px; }
+  .sw i { width:22px; height:22px; border-radius:5px; border:1px solid rgba(0,0,0,.12); }
+  .hex { font:500 10px/1.6 ui-monospace,monospace; color:#8A96A3; }
+
+  .stage { display:flex; gap:26px; flex-wrap:wrap; align-items:flex-start; margin-top:20px; }
+  .col { display:flex; flex-direction:column; gap:9px; }
+  .cap { font:500 11px/1.4 ui-monospace,monospace; color:#8A96A3; text-align:center; }
+
+  /* ---------- theme-driven mocks ---------- */
+  .t { --radius:16px; }
+  .phone { width:290px; border-radius:30px; padding:16px 14px 20px;
+    background:var(--page); box-shadow:0 18px 40px -22px rgba(11,34,58,.6); }
+  .ph-h { display:flex; align-items:baseline; justify-content:space-between; padding:2px 4px 12px; }
+  .ph-h b { font:700 19px/1.2 -apple-system,system-ui,sans-serif; color:var(--text); letter-spacing:-.01em; }
+  .ph-h span { font:500 11px/1 -apple-system,system-ui,sans-serif; color:var(--sub); }
+
+  .card { background:var(--surface); border:1px solid var(--sep); border-radius:var(--radius);
+    padding:14px; margin-bottom:10px; }
+  .card > .ttl { font:700 14px/1.3 -apple-system,system-ui,sans-serif; color:var(--text); }
+  .card > .sub { font:500 11px/1.4 -apple-system,system-ui,sans-serif; color:var(--sub); margin-top:3px; }
+  .rule { height:1px; background:var(--sep); margin:11px 0 3px; }
+
+  .row { display:flex; align-items:center; gap:9px; min-height:44px; }
+  .mark { width:26px; height:26px; border-radius:50%; flex:none; display:grid; place-items:center;
+    font:700 13px/1 -apple-system,system-ui,sans-serif; }
+  .dir { flex:1; min-width:0; }
+  .dir b { display:block; font:600 13px/1.35 -apple-system,system-ui,sans-serif; color:var(--text);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .dir i { font-style:normal; font:500 10px/1.4 -apple-system,system-ui,sans-serif; color:var(--sub); }
+  .heart { color:var(--urgentText); font-size:9px; margin-left:3px; }
+  .cd { flex:none; font:700 19px/1 -apple-system,system-ui,sans-serif; color:var(--action);
+    font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+  .cd em { font-style:normal; font:600 9px/1 -apple-system,system-ui,sans-serif; margin-left:1px; }
+  .cd.off { font:500 11px/1 -apple-system,system-ui,sans-serif; color:var(--sub); }
+  .pill { flex:none; font:700 11px/1 -apple-system,system-ui,sans-serif; color:var(--urgentText);
+    background:var(--urgentSurface); padding:6px 8px; border-radius:6px; }
+  .lbadge { display:inline-block; font:700 10px/1 -apple-system,system-ui,sans-serif;
+    padding:4px 7px; border-radius:6px; }
+
+  .btn { margin-top:2px; text-align:center; font:600 12px/1 -apple-system,system-ui,sans-serif;
+    background:var(--action); color:var(--onAction); padding:11px; border-radius:11px; }
+
+  .widget { width:150px; height:150px; border-radius:22px; padding:12px;
+    background:var(--page); box-shadow:0 14px 30px -16px rgba(11,34,58,.55);
+    display:flex; flex-direction:column; }
+  .widget .wt { font:700 13px/1.2 -apple-system,system-ui,sans-serif; color:var(--text); }
+  .widget .wr { height:1px; background:var(--sep); margin:7px 0 2px; }
+  .widget .row { min-height:0; flex:1; gap:7px; }
+  .widget .mark { width:23px; height:23px; font-size:11px; }
+  .widget .dir b { font-size:11px; }
+  .widget .cd { font-size:17px; }
+
+  .verdict { margin-top:14px; padding:11px 13px; border-radius:10px; background:#DFE5EC;
+    font-size:12px; color:#41505F; max-width:860px; }
+  .verdict b { color:#0F2233; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Approaching · UI 配色对照</h1>
+  <p>
+    每套都渲染 <b class="k">浅色 App / 深色 App / 小组件</b>，并且固定用真实的北京地铁官方线路色做压力测试：
+    <b class="k">13号线 #F4DA40</b>（高亮黄，最难搭）、<b class="k">昌平线 #D986BA</b>（粉）、
+    <b class="k">2号线 #004B87</b>（深蓝）、<b class="k">10号线 #0092BC</b>（青）。
+  </p>
+  <p>
+    判断标准只有一条：<b class="k">线路色块必须是画面里最抢眼的东西</b>。底色和强调色只要开始跟线路色争注意力，
+    信息层级就塌了——用户扫一眼要找的是"哪条线、几分钟"，不是欣赏背景。
+  </p>
+</div>
+
+<div class="wrap" id="out"></div>
+
+<script>
+const LINES = {
+  l13:  { name:'13', color:'#F4DA40', on:'#17313D', full:'13号线', dir:'昌平西山口' },
+  cp:   { name:'昌平', color:'#D986BA', on:'#FAF3E9', full:'昌平线', dir:'西土城' },
+  l2:   { name:'2',  color:'#004B87', on:'#FAF3E9', full:'2号线',  dir:'西直门' },
+  l10:  { name:'10', color:'#0092BC', on:'#FAF3E9', full:'10号线', dir:'巴沟' },
+};
+
+const THEMES = [
+  {
+    id:'cream', title:'A · Paper Cream', tag:'现状', now:true,
+    why:'暖米黄纸感底 + 中蓝强调。单看很有性格，但暖底会把冷色系线路色"压灰"，13号线的黄几乎融进背景。',
+    verdict:'<b>问题最明显的一套。</b>米黄 #FAF3E9 和 13号线黄 #F4DA40 色相太近、明度也接近，黄色圆点在浅色模式下基本消失。粉色昌平线在暖底上偏土。',
+    light:{ page:'#FAF3E9', surface:'#FFFDF8', text:'#17313D', sub:'#596B73', sep:'#E3D7C5',
+            action:'#0D6B98', onAction:'#FAF3E9', urgentText:'#B73700', urgentSurface:'#FCE2D6' },
+    dark:{  page:'#0D2029', surface:'#15313F', text:'#FAF3E9', sub:'#B9C8CC', sep:'#2D4D59',
+            action:'#61C7F0', onAction:'#0D2029', urgentText:'#FF9A76', urgentSurface:'#582B1B' },
+  },
+  {
+    id:'slate', title:'B · Transit Slate', tag:'推荐',
+    why:'冷中性灰底，强调色是克制的钢蓝。灰底不参与色相竞争，任何线路色放上去都是原本的样子。',
+    verdict:'<b>最稳的一套，也是我的首选。</b>中性冷灰是所有交通类 App 的默认解（Citymapper、Transit、Apple 地图），因为它对 20+ 种线路色一视同仁。黄色线终于能看见了。',
+    light:{ page:'#F1F4F7', surface:'#FFFFFF', text:'#101C26', sub:'#5B6B78', sep:'#DCE3EA',
+            action:'#0B6FA4', onAction:'#FFFFFF', urgentText:'#C2321B', urgentSurface:'#FDE4DE' },
+    dark:{  page:'#0B1116', surface:'#161F27', text:'#E9EEF2', sub:'#93A3B0', sep:'#26333D',
+            action:'#4FBBEF', onAction:'#0B1116', urgentText:'#FF8A6B', urgentSurface:'#40190F' },
+  },
+  {
+    id:'mono', title:'C · Signage Mono', tag:'最克制',
+    why:'整个界面只有黑、白、灰三级，唯一的彩色来源就是线路色本身。倒计时数字也用纯黑/纯白。',
+    verdict:'<b>信息密度最高、最"地铁标识牌"的一套</b>（Vignelli 那套纽约地图的思路）。代价是没有品牌色，App 图标和界面之间会缺一个视觉钩子；"即将到站"只能靠红色文字承担全部紧急感。',
+    light:{ page:'#F7F7F8', surface:'#FFFFFF', text:'#0A0A0B', sub:'#6B6F76', sep:'#E4E5E8',
+            action:'#0A0A0B', onAction:'#FFFFFF', urgentText:'#B3200F', urgentSurface:'#F6DCD7' },
+    dark:{  page:'#0A0A0B', surface:'#17181A', text:'#FAFAFA', sub:'#9CA0A6', sep:'#26282C',
+            action:'#FAFAFA', onAction:'#0A0A0B', urgentText:'#FF7A5C', urgentSurface:'#3A1710' },
+  },
+  {
+    id:'ink', title:'D · Beijing Ink', tag:'本地化',
+    why:'强调色直接取北京地铁企业蓝（≈2号线 #004B87 提亮），底色是带一点蓝的冷灰。',
+    verdict:'<b>地域感最强，但有个自伤：</b>强调色和 2 号线线路色几乎同色，用户在 2 号线站点会分不清"这是品牌色还是线路色"。如果 App 只做北京可以接受，要扩城市就别选。',
+    light:{ page:'#EEF1F5', surface:'#FFFFFF', text:'#0F2233', sub:'#56687A', sep:'#D9E1EA',
+            action:'#00559A', onAction:'#FFFFFF', urgentText:'#C1341C', urgentSurface:'#FBE3DD' },
+    dark:{  page:'#071019', surface:'#12202C', text:'#E7EEF5', sub:'#8FA3B4', sep:'#22333F',
+            action:'#59B4EE', onAction:'#071019', urgentText:'#FF8E70', urgentSurface:'#43190E' },
+  },
+];
+
+const vars = s => Object.entries(s).map(([k,v]) => `--${k}:${v}`).join(';');
+
+function row(l, minutes, fav, urgent, off) {
+  let right;
+  if (off)         right = `<div class="cd off">末班已过</div>`;
+  else if (urgent) right = `<div class="pill">即将</div>`;
+  else             right = `<div class="cd">${minutes}<em>分</em></div>`;
+  return `<div class="row">
+    <div class="mark" style="background:${l.color};color:${l.on}">${l.name}</div>
+    <div class="dir"><b>往 ${l.dir}${fav ? '<span class="heart">&#10084;</span>' : ''}</b><i>${l.full}</i></div>
+    ${right}
+  </div>`;
+}
+
+function phone() {
+  return `<div class="phone">
+    <div class="ph-h"><b>西二旗</b><span>约 240 米</span></div>
+    <div class="card">
+      <div class="ttl">最近车站</div>
+      <div class="sub">4 条线路 · 8 个方向</div>
+      <div class="rule"></div>
+      ${row(LINES.l13, 3, true, false, false)}
+      ${row(LINES.cp, 0, false, true, false)}
+      ${row(LINES.l10, 12, false, false, false)}
+      ${row(LINES.l2, null, false, false, true)}
+    </div>
+    <div class="card" style="padding:9px"><div class="btn">刷新位置</div></div>
+  </div>`;
+}
+
+function widget() {
+  return `<div class="widget">
+    <div class="wt">西二旗</div><div class="wr"></div>
+    ${row(LINES.l13, 3, true, false, false)}
+    ${row(LINES.cp, 7, false, false, false)}
+  </div>`;
+}
+
+document.getElementById('out').innerHTML = THEMES.map(t => `
+  <section>
+    <h2>${t.title}<span class="badge ${t.now ? 'now' : ''}">${t.tag}</span></h2>
+    <p>${t.why}</p>
+    <div class="sw">
+      ${['page','surface','text','sub','action','urgentText'].map(k => `<i style="background:${t.light[k]}"></i>`).join('')}
+      <i style="width:10px;border:0;background:transparent"></i>
+      ${['page','surface','text','sub','action','urgentText'].map(k => `<i style="background:${t.dark[k]}"></i>`).join('')}
+    </div>
+    <div class="hex">
+      light &nbsp;${t.light.page} · ${t.light.surface} · ${t.light.text} · ${t.light.action}<br>
+      dark &nbsp;&nbsp;${t.dark.page} · ${t.dark.surface} · ${t.dark.text} · ${t.dark.action}
+    </div>
+    <div class="stage">
+      <div class="col"><div class="t" style="${vars(t.light)}">${phone()}</div><div class="cap">浅色</div></div>
+      <div class="col"><div class="t" style="${vars(t.dark)}">${phone()}</div><div class="cap">深色</div></div>
+      <div class="col">
+        <div class="t" style="${vars(t.light)}">${widget()}</div><div class="cap">小组件 · 浅色</div>
+        <div class="t" style="${vars(t.dark)}">${widget()}</div><div class="cap">小组件 · 深色</div>
+      </div>
+    </div>
+    <div class="verdict">${t.verdict}</div>
+  </section>
+`).join('');
+</script>
+</body>
+</html>

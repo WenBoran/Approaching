@@ -16,19 +16,26 @@ struct FavoriteDirection: Codable, Hashable {
 }
 
 struct StationDirectionSnapshot: Codable, Equatable {
+    let stationName: String?
     let lineName: String
     let name: String
     let arrivalDates: [Date]
     let isFavorite: Bool
 
     private enum CodingKeys: String, CodingKey {
+        case stationName
         case lineName
         case name
         case arrivalDates
         case isFavorite
     }
 
-    init(lineName: String, name: String, arrivalDates: [Date], isFavorite: Bool) {
+    init(stationName: String? = nil,
+         lineName: String,
+         name: String,
+         arrivalDates: [Date],
+         isFavorite: Bool) {
+        self.stationName = stationName
         self.lineName = lineName
         self.name = name
         self.arrivalDates = arrivalDates
@@ -37,6 +44,7 @@ struct StationDirectionSnapshot: Codable, Equatable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        stationName = try container.decodeIfPresent(String.self, forKey: .stationName)
         lineName = try container.decodeIfPresent(String.self, forKey: .lineName) ?? "地铁"
         name = try container.decode(String.self, forKey: .name)
         arrivalDates = try container.decode([Date].self, forKey: .arrivalDates)
@@ -107,6 +115,16 @@ enum AppGroupStore {
             lastUpdate: Date(timeIntervalSince1970: defaults.double(forKey: StorageKey.lastUpdateTime)),
             directions: directions
         )
+    }
+
+    /// Last coordinate written by the app. The widget recomputes arrivals from it,
+    /// so it keeps working on later days without the app being opened.
+    static func lastCoordinate() -> (latitude: Double, longitude: Double)? {
+        guard let defaults, defaults.object(forKey: StorageKey.latitude) != nil else {
+            return nil
+        }
+        return (defaults.double(forKey: StorageKey.latitude),
+                defaults.double(forKey: StorageKey.longitude))
     }
 
     static func favoriteDirections() -> Set<FavoriteDirection> {
